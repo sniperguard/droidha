@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.5] - 2025-10-01
+
+### Fixed
+- Added error handling and fallback to bash shell when droid fails
+- Explicitly set PATH and working directory before launching droid
+- Show error messages when droid exits with non-zero code
+- Change to /config directory before starting droid
+
+### Changed
+- Enhanced launch command with better error reporting
+- Added fallback to bash shell for troubleshooting
+- Improved debugging capability
+
 ## [1.0.4] - 2025-10-01
 
 ### Fixed
