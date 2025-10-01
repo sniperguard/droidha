@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2025-10-01
+
+### Fixed
+- Switched from Alpine Linux to Debian base images to fix glibc compatibility
+- Droid binary requires glibc which Alpine's musl doesn't provide
+- Updated package manager commands from apk to apt-get
+- Fixed "cannot execute: required file not found" error
+
+### Changed
+- Base images: Now using ghcr.io/home-assistant/*-base-debian:bookworm
+- Package installation: Changed from apk to apt-get with proper cleanup
+- Maintains all functionality with proper library support
+
 ## [1.0.1] - 2025-10-01
 
 ### Fixed

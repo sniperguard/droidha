@@ -95,10 +95,11 @@ migrate_legacy_auth_files() {
 # Install required tools
 install_tools() {
     bashio::log.info "Installing additional tools..."
-    if ! apk add --no-cache ttyd jq curl; then
+    if ! apt-get update && apt-get install -y --no-install-recommends ttyd jq curl; then
         bashio::log.error "Failed to install required tools"
         exit 1
     fi
+    rm -rf /var/lib/apt/lists/*
     bashio::log.info "Tools installed successfully"
 }
 

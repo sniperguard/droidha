@@ -2,11 +2,12 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 # Install packages in a single layer to minimize image size
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     bash \
     curl \
     nano \
-    ca-certificates
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Droid CLI using the official installer
 RUN curl -fsSL https://app.factory.ai/cli | sh
