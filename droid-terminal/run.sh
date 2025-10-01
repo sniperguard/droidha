@@ -12,6 +12,8 @@ init_environment() {
     local cache_dir="/data/.cache"
     local state_dir="/data/.local/state"
     local droid_config_dir="/data/.config/droid"
+    local factory_source_dir="/root/.factory"
+    local factory_target_dir="$data_home/.factory"
 
     bashio::log.info "Initializing Droid CLI environment in /data..."
 
@@ -28,6 +30,15 @@ init_environment() {
     rm -f /data/.config/droid/*.lock 2>/dev/null || true
     rm -f /data/.local/state/droid/*.lock 2>/dev/null || true
 
+    # Ensure Factory CLI assets are accessible from the new HOME
+    if [ ! -e "$factory_target_dir" ]; then
+        if [ -d "$factory_source_dir" ]; then
+            ln -s "$factory_source_dir" "$factory_target_dir"
+        else
+            mkdir -p "$factory_target_dir"
+        fi
+    fi
+
     # Set XDG and application environment variables
     export HOME="$data_home"
     export XDG_CONFIG_HOME="$config_dir"
@@ -38,9 +49,11 @@ init_environment() {
     # Droid-specific environment variables
     export DROID_CONFIG_DIR="$droid_config_dir"
     export DROID_HOME="/data"
+    export FACTORY_HOME="$factory_target_dir"
     
     # Add droid binary to PATH
     export PATH="/root/.local/bin:$PATH"
+    export PATH="/root/.factory/bin:$PATH"
 
     # Migrate any existing authentication files from legacy locations
     migrate_legacy_auth_files "$droid_config_dir"
@@ -146,10 +159,47 @@ setup_session_picker() {
 print_auto_launch_script() {
     cat <<'EOF'
 export PATH=/root/.local/bin:$PATH
+export PATH=/root/.factory/bin:$PATH
 cd /config
 [ -d .git ] || (git init && git config user.name 'Home Assistant' && git config user.email 'addon@homeassistant.local')
 clear
 echo 'Welcome to Droid Terminal!'
+echo ''
+
+ensure_factory_auth() {
+    if [ -n "${FACTORY_API_KEY:-}" ]; then
+        echo 'FACTORY_API_KEY detected. Using API key authentication.'
+        return 0
+    fi
+
+    local status_output raw_status
+    status_output="$(droid headless status 2>&1)"
+    raw_status="$(printf '%s\n' "$status_output" | sed 's/\x1b\[[0-9;]*m//g')"
+
+    printf '%s\n' "$status_output"
+
+    if echo "$raw_status" | grep -qi 'Not authenticated'; then
+        echo ''
+        echo 'No active Factory authentication detected.'
+        echo 'Starting headless login flow...'
+        echo ''
+
+        if ! droid headless login; then
+            echo ''
+            echo 'Headless login did not complete successfully.'
+            echo 'You can rerun `droid headless login` from this shell at any time.'
+            return 1
+        fi
+
+        echo ''
+        echo 'Authentication completed successfully.'
+    fi
+
+    return 0
+}
+
+ensure_factory_auth
+
 echo ''
 echo 'Starting Droid...'
 sleep 1
