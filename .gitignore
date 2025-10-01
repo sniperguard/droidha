@@ -1,0 +1,27 @@
+# Home Assistant Add-on specific
+.vscode/
+.DS_Store
+*.log
+
+# Build artifacts
+build/
+dist/
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# IDE files
+.idea/
+*.iml
+
+# Node modules (if any)
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
