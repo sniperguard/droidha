@@ -143,25 +143,45 @@ setup_session_picker() {
     fi
 }
 
+print_auto_launch_script() {
+    cat <<'EOF'
+export PATH=/root/.local/bin:$PATH
+cd /config
+[ -d .git ] || (git init && git config user.name 'Home Assistant' && git config user.email 'addon@homeassistant.local')
+clear
+echo 'Welcome to Droid Terminal!'
+echo ''
+echo 'Starting Droid...'
+sleep 1
+droid
+exit_code=$?
+if [ "$exit_code" -ne 0 ]; then
+    echo ''
+    echo "Droid exited with code $exit_code."
+else
+    echo ''
+    echo 'Droid exited successfully.'
+fi
+echo ''
+echo 'Opening interactive shell...'
+exec bash
+EOF
+}
+
 # Determine Droid launch command based on configuration
 get_droid_launch_command() {
     local auto_launch_droid
-    
-    # Get configuration value, default to true for backward compatibility
+
     auto_launch_droid=$(bashio::config 'auto_launch_droid' 'true')
-    
+
     if [ "$auto_launch_droid" = "true" ]; then
-        # Original behavior: auto-launch Droid directly
-        # Set PATH and change to config directory before launching
-        echo "export PATH=/root/.local/bin:\$PATH && cd /config && [ -d .git ] || (git init && git config user.name 'Home Assistant' && git config user.email 'addon@homeassistant.local') && clear && echo 'Welcome to Droid Terminal!' && echo '' && echo 'Starting Droid...' && sleep 1 && exec droid"
+        print_auto_launch_script
     else
-        # New behavior: show interactive session picker
         if [ -f /usr/local/bin/droid-session-picker ]; then
             echo "clear && /usr/local/bin/droid-session-picker"
         else
-            # Fallback if session picker is missing
             bashio::log.warning "Session picker not found, falling back to auto-launch"
-            echo "clear && echo 'Welcome to Droid Terminal!' && echo '' && echo 'Starting Droid...' && sleep 1 && droid"
+            print_auto_launch_script
         fi
     fi
 }
