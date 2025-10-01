@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.4] - 2025-10-01
+
+### Fixed
+- Download prebuilt ttyd binary from GitHub releases instead of apt
+- ttyd is not available in Debian bookworm repository
+- Use architecture detection via uname -m for Home Assistant compatibility
+- Download ttyd v1.7.7 based on detected architecture (x86_64, aarch64, armhf)
+
+### Changed
+- Removed ttyd from apt-get install command
+- Added separate RUN step to download and install ttyd binary
+- More reliable across all supported architectures
+
 ## [1.0.3] - 2025-10-01
 
 ### Fixed
