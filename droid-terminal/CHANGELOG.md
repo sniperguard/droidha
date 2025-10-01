@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.10] - 2025-10-01
+
+### Fixed
+- Added --reconnect 10 flag to ttyd for reconnection support
+- Prevents killing droid process when browser disconnects
+- Allows resuming droid session after connection loss
+
+### Changed
+- ttyd now allows reconnection within 10 seconds
+- Droid session persists through browser refresh/disconnect
+
 ## [1.0.9] - 2025-10-01
 
 ### Fixed
