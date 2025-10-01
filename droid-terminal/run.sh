@@ -186,6 +186,7 @@ start_web_terminal() {
         --port "${port}" \
         --interface 0.0.0.0 \
         --writable \
+        --reconnect 10 \
         bash -c "$launch_command"
 }
 
