@@ -1,7 +1,7 @@
 ---
 name: "Droid Terminal"
 description: "Terminal interface for Factory's Droid CLI with persistent auth"
-version: "1.0.10"
+version: "1.0.11"
 slug: "droid_terminal"
 init: false
 

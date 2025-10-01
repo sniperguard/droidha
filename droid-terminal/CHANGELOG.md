@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.11] - 2025-10-01
+
+### Fixed
+- Clean up stale lock files on startup
+- Prevents "process exited with code 1" on subsequent runs
+- Remove any .lock files from droid config and state directories
+- Fixes issue where droid works first time but fails after restart
+
+### Changed
+- Added lock file cleanup to init_environment function
+- Ensures clean state for each droid session
+
 ## [1.0.10] - 2025-10-01
 
 ### Fixed
