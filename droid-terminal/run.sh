@@ -55,6 +55,9 @@ init_environment() {
     export PATH="/root/.local/bin:$PATH"
     export PATH="/root/.factory/bin:$PATH"
 
+    # Prevent droid CLI from launching unavailable desktop browsers
+    export BROWSER="/bin/echo"
+
     # Migrate any existing authentication files from legacy locations
     migrate_legacy_auth_files "$droid_config_dir"
 
