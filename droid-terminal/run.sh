@@ -23,6 +23,10 @@ init_environment() {
 
     # Set permissions
     chmod 755 "$data_home" "$config_dir" "$cache_dir" "$state_dir" "$droid_config_dir"
+    
+    # Clean up any stale lock files that might prevent droid from starting
+    rm -f /data/.config/droid/*.lock 2>/dev/null || true
+    rm -f /data/.local/state/droid/*.lock 2>/dev/null || true
 
     # Set XDG and application environment variables
     export HOME="$data_home"
