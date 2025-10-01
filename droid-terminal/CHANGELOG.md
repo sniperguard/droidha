@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.7] - 2025-10-01
+
+### Fixed
+- Initialize git repository in /config if not present
+- Set git user.name and user.email for droid
+- Install git package (droid may require it)
+- Fixes "process exited with code 1" after authentication
+
+### Added
+- Git initialization before launching droid
+- Default git config for addon usage
+
 ## [1.0.6] - 2025-10-01
 
 ### Fixed

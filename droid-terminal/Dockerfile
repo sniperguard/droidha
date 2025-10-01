@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     nano \
     ca-certificates \
     jq \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # Install ttyd binary based on architecture
