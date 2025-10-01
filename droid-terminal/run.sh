@@ -149,7 +149,7 @@ get_droid_launch_command() {
     if [ "$auto_launch_droid" = "true" ]; then
         # Original behavior: auto-launch Droid directly
         # Set PATH and change to config directory before launching
-        echo "export PATH=/root/.local/bin:\$PATH && cd /config && [ -d .git ] || (git init && git config user.name 'Home Assistant' && git config user.email 'addon@homeassistant.local') && clear && echo 'Welcome to Droid Terminal!' && echo '' && echo 'Starting Droid...' && sleep 1 && exec droid"
+        echo "export PATH=/root/.local/bin:\$PATH && cd /config && [ -d .git ] || (git init && git config user.name 'Home Assistant' && git config user.email 'addon@homeassistant.local') && clear && echo 'Welcome to Droid Terminal!' && echo '' && echo 'Starting Droid...' && sleep 1 && droid 2>&1 || { echo ''; echo 'ERROR: Droid exited with code '\$?; echo ''; echo 'Press Ctrl+C to close or wait for shell...'; sleep 3; exec bash; }"
     else
         # New behavior: show interactive session picker
         if [ -f /usr/local/bin/droid-session-picker ]; then

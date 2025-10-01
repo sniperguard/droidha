@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.8] - 2025-10-01
+
+### Changed
+- Temporarily remove exec to capture droid error messages
+- Show error code and stderr output when droid fails
+- Fallback to bash shell after error for debugging
+- Keep droid running without exec to see full output
+
+### Debug
+- This version helps diagnose why droid exits with code 1
+- Will revert to exec once root cause is found
+
 ## [1.0.7] - 2025-10-01
 
 ### Fixed
