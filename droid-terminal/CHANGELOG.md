@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.12] - 2025-10-01
+
+### Fixed
+- Removed --reconnect flag (not supported by ttyd 1.7.7)
+- Fixed "ttyd: unrecognized option: reconnect" error
+- Fixed command being parsed as "10 bash..." instead of "bash..."
+- Restored proper ttyd command line
+
 ## [1.0.11] - 2025-10-01
 
 ### Fixed
