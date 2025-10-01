@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.9] - 2025-10-01
+
+### Fixed
+- Restored exec droid for proper interactive session
+- Droid exits with code 0 after auth, which is expected
+- Interactive mode should work now with exec
+- Git initialization included before droid starts
+
+### Changed
+- Reverted to exec droid for proper terminal takeover
+- Simplified command - let droid handle its own session
+
 ## [1.0.8] - 2025-10-01
 
 ### Changed
