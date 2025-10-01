@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.6] - 2025-10-01
+
+### Fixed
+- Use exec to replace shell process with droid
+- Prevents premature process termination
+- Droid now stays running in foreground properly
+- Fixes process being killed with SIGHUP after authentication
+
+### Changed
+- Simplified launch command - removed error handling wrapper
+- Let droid handle its own lifecycle and errors
+- Use exec droid instead of just droid
+
 ## [1.0.5] - 2025-10-01
 
 ### Fixed

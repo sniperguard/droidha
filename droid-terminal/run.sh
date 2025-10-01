@@ -149,7 +149,7 @@ get_droid_launch_command() {
     if [ "$auto_launch_droid" = "true" ]; then
         # Original behavior: auto-launch Droid directly
         # Set PATH and change to config directory before launching
-        echo "export PATH=/root/.local/bin:\$PATH && cd /config && clear && echo 'Welcome to Droid Terminal!' && echo '' && echo 'Starting Droid...' && sleep 1 && droid 2>&1 || (echo 'Droid failed to start. Error code: \$?' && echo 'Press Enter to start a bash shell...' && read && /bin/bash)"
+        echo "export PATH=/root/.local/bin:\$PATH && cd /config && clear && echo 'Welcome to Droid Terminal!' && echo '' && echo 'Starting Droid...' && sleep 1 && exec droid"
     else
         # New behavior: show interactive session picker
         if [ -f /usr/local/bin/droid-session-picker ]; then
