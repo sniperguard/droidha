@@ -34,6 +34,9 @@ init_environment() {
     # Droid-specific environment variables
     export DROID_CONFIG_DIR="$droid_config_dir"
     export DROID_HOME="/data"
+    
+    # Add droid binary to PATH
+    export PATH="/root/.local/bin:$PATH"
 
     # Migrate any existing authentication files from legacy locations
     migrate_legacy_auth_files "$droid_config_dir"

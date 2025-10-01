@@ -3,27 +3,15 @@
 
 echo "Running system health checks..."
 
-# Check Node.js installation
-if command -v node &> /dev/null; then
-    echo "✓ Node.js installed: $(node --version)"
-else
-    echo "✗ Node.js not found"
-    exit 1
-fi
-
-# Check npm installation
-if command -v npm &> /dev/null; then
-    echo "✓ npm installed: $(npm --version)"
-else
-    echo "✗ npm not found"
-    exit 1
-fi
+# Add droid to PATH for check
+export PATH="/root/.local/bin:$PATH"
 
 # Check if Droid is installed
 if command -v droid &> /dev/null; then
-    echo "✓ Droid CLI installed"
+    echo "✓ Droid CLI installed: $(droid --version 2>&1 | head -1 || echo 'version unknown')"
 else
-    echo "⚠ Droid CLI not found - will be installed on first run"
+    echo "⚠ Droid CLI not found in /root/.local/bin"
+    exit 1
 fi
 
 # Check ttyd installation
