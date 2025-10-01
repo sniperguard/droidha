@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2025-10-01
+
+### Fixed
+- Pre-install ttyd and jq in Dockerfile instead of at runtime
+- Fixed "ttyd: not found" error preventing addon from starting
+- Changed from runtime installation to build-time installation for reliability
+
+### Changed
+- Moved ttyd and jq installation to Dockerfile
+- Replaced install_tools() with verify_tools() for better error messages
+- Tools are now baked into the image, reducing startup time
+
 ## [1.0.2] - 2025-10-01
 
 ### Fixed

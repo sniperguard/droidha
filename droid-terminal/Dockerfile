@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     nano \
     ca-certificates \
+    ttyd \
+    jq \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Droid CLI using the official installer

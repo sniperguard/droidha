@@ -92,15 +92,30 @@ migrate_legacy_auth_files() {
     fi
 }
 
-# Install required tools
-install_tools() {
-    bashio::log.info "Installing additional tools..."
-    if ! apt-get update && apt-get install -y --no-install-recommends ttyd jq curl; then
-        bashio::log.error "Failed to install required tools"
+# Verify required tools are available
+verify_tools() {
+    bashio::log.info "Verifying required tools..."
+    
+    local missing_tools=()
+    
+    if ! command -v ttyd &> /dev/null; then
+        missing_tools+=("ttyd")
+    fi
+    
+    if ! command -v jq &> /dev/null; then
+        missing_tools+=("jq")
+    fi
+    
+    if ! command -v curl &> /dev/null; then
+        missing_tools+=("curl")
+    fi
+    
+    if [ ${#missing_tools[@]} -gt 0 ]; then
+        bashio::log.error "Missing required tools: ${missing_tools[*]}"
         exit 1
     fi
-    rm -rf /var/lib/apt/lists/*
-    bashio::log.info "Tools installed successfully"
+    
+    bashio::log.info "All required tools are available"
 }
 
 # Setup session picker script
@@ -190,7 +205,7 @@ main() {
     run_health_check
 
     init_environment
-    install_tools
+    verify_tools
     setup_session_picker
     start_web_terminal
 }
